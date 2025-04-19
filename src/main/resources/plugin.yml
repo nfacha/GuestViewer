@@ -1,0 +1,7 @@
+name: GuestViewer
+version: '1.0-SNAPSHOT'
+main: dev.facha.guestViewer.GuestViewer
+api-version: '1.21'
+prefix: GuestViewer
+authors: [Esquilim]
+website: facha
