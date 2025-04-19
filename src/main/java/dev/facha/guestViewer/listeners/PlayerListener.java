@@ -64,6 +64,19 @@ public class PlayerListener implements Listener {
             player.sendMessage(plugin.getSpectatorJoinMessage());
         }
     }
+    
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        Player player = event.getPlayer();
+        
+        // Check if player is in spectator mode and doesn't have permission to chat
+        if (plugin.isRestrictSpectatorChat() && 
+            player.getGameMode() == GameMode.SPECTATOR && 
+            !plugin.canChat(player)) {
+            event.setCancelled(true);
+            player.sendMessage(plugin.getChatRestrictedMessage());
+        }
+    }
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {

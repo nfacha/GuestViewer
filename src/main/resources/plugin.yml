@@ -23,3 +23,6 @@ permissions:
   guestviewer.freeroam:
     description: Allows spectators to freely roam within the max distance from spawn
     default: false
+  guestviewer.chat:
+    description: Allows spectators to use chat
+    default: false

@@ -13,6 +13,14 @@ messages:
   
   # Message shown when a spectator tries to move beyond the max distance
   distance-warning: "&cYou cannot move more than 100 blocks from the player you are spectating!"
+  
+  # Message shown when a spectator without chat permission tries to chat
+  chat-restricted: "&cYou don't have permission to chat. You are in spectator mode."
+
+# Chat settings
+chat:
+  # Whether to restrict chat for spectators without permission
+  restrict-spectator-chat: true
 
 # Broadcast notifications
 broadcast:
@@ -30,8 +38,4 @@ broadcast:
   
   # Whether to broadcast when a spectator leaves
   spectator-quit-enabled: true
-  spectator-quit-message: "&7Guest &e%player% &7has left the server."
-
-# Allow spectators with the guestviewer.freeroam permission to freely roam within max-distance blocks of world spawn
-# Both this setting AND the permission are required for free roaming
-allow-free-roam: true 
+  spectator-quit-message: "&7Guest &e%player% &7has left the server." 

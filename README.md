@@ -23,7 +23,8 @@ A Minecraft plugin that restricts non-whitelisted players to spectator mode with
 - Permission-based whitelist system - players without the `guestviewer.bypass` permission are automatically set to spectator mode
 - Players with the `guestviewer.bypass` permission are automatically set to survival mode
 - Spectators can only move within 100 blocks of the player they're spectating
-- Permission-based free roaming near world spawn
+- Permission-based free roaming near world spawn (`guestviewer.freeroam`)
+- Chat restriction for spectators unless they have the `guestviewer.chat` permission
 - Configurable welcome messages for both regular players and spectators
 - Configurable join/leave broadcast messages for both regular players and spectators
 - Simple and lightweight
@@ -42,6 +43,7 @@ A Minecraft plugin that restricts non-whitelisted players to spectator mode with
 - `guestviewer.bypass` - Players with this permission play normally (default: op)
 - `guestviewer.admin` - Required to use admin commands like reload (default: op)
 - `guestviewer.freeroam` - Allows spectators to roam freely within the configured distance of world spawn (default: false)
+- `guestviewer.chat` - Allows spectators to use the chat (default: false)
 
 ### Commands
 
@@ -66,6 +68,14 @@ messages:
   
   # Message shown when a spectator tries to move beyond the max distance
   distance-warning: "&cYou cannot move more than 100 blocks from the player you are spectating!"
+  
+  # Message shown when a spectator without chat permission tries to chat
+  chat-restricted: "&cYou don't have permission to chat. You are in spectator mode."
+
+# Chat settings
+chat:
+  # Whether to restrict chat for spectators without permission
+  restrict-spectator-chat: true
 
 # Broadcast notifications
 broadcast:
@@ -84,11 +94,6 @@ broadcast:
   # Whether to broadcast when a spectator leaves
   spectator-quit-enabled: true
   spectator-quit-message: "&7Guest &e%player% &7has left the server."
-
-# Allow spectators with the guestviewer.freeroam permission to freely roam
-# within max-distance blocks of world spawn
-# Both this setting AND the permission are required for free roaming
-allow-free-roam: true
 ```
 
 ## How it Works
@@ -98,7 +103,8 @@ allow-free-roam: true
 3. If they don't have the permission, they're set to spectator mode
 4. Spectators are restricted to a 100-block radius (configurable) around the player they're spectating
 5. Spectators with the `guestviewer.freeroam` permission can move within the configured radius of world spawn
-6. If they try to move beyond allowed boundaries, they're teleported back
+6. Spectators without the `guestviewer.chat` permission cannot use the chat
+7. If they try to move beyond allowed boundaries, they're teleported back
 
 ## Support
 

@@ -22,6 +22,10 @@ public final class GuestViewer extends JavaPlugin {
     private String spectatorJoinMessage;
     private String playerJoinMessage;
     private String distanceWarning;
+    private String chatRestrictedMessage;
+    
+    // Chat settings
+    private boolean restrictSpectatorChat;
     
     // Broadcast settings
     private boolean playerJoinBroadcastEnabled;
@@ -32,8 +36,6 @@ public final class GuestViewer extends JavaPlugin {
     private String spectatorJoinBroadcastMessage;
     private boolean spectatorQuitBroadcastEnabled;
     private String spectatorQuitBroadcastMessage;
-    
-    private boolean allowFreeRoam;
 
     @Override
     public void onEnable() {
@@ -78,6 +80,11 @@ public final class GuestViewer extends JavaPlugin {
                 config.getString("messages.player-join", "&aWelcome back! You are playing in survival mode."));
         distanceWarning = ChatColor.translateAlternateColorCodes('&', 
                 config.getString("messages.distance-warning", "&cYou cannot move more than 100 blocks from the player you are spectating!"));
+        chatRestrictedMessage = ChatColor.translateAlternateColorCodes('&', 
+                config.getString("messages.chat-restricted", "&cYou don't have permission to chat. You are in spectator mode."));
+        
+        // Load chat settings
+        restrictSpectatorChat = config.getBoolean("chat.restrict-spectator-chat", true);
         
         // Load broadcast settings
         playerJoinBroadcastEnabled = config.getBoolean("broadcast.player-join-enabled", true);
@@ -93,8 +100,6 @@ public final class GuestViewer extends JavaPlugin {
         spectatorQuitBroadcastEnabled = config.getBoolean("broadcast.spectator-quit-enabled", true);
         spectatorQuitBroadcastMessage = ChatColor.translateAlternateColorCodes('&', 
                 config.getString("broadcast.spectator-quit-message", "&7Guest &e%player% &7has left the server."));
-        
-        allowFreeRoam = config.getBoolean("allow-free-roam", true);
     }
     
     public void setSpectatorTarget(Player spectator, Player target) {
@@ -129,6 +134,14 @@ public final class GuestViewer extends JavaPlugin {
         return distanceWarning;
     }
     
+    public String getChatRestrictedMessage() {
+        return chatRestrictedMessage;
+    }
+    
+    public boolean isRestrictSpectatorChat() {
+        return restrictSpectatorChat;
+    }
+    
     public boolean isPlayerJoinBroadcastEnabled() {
         return playerJoinBroadcastEnabled;
     }
@@ -161,10 +174,6 @@ public final class GuestViewer extends JavaPlugin {
         return spectatorQuitBroadcastMessage.replace("%player%", playerName);
     }
     
-    public boolean getAllowFreeRoam() {
-        return allowFreeRoam;
-    }
-    
     public boolean hasPermission(Player player, String permission) {
         return player.hasPermission(permission);
     }
@@ -174,7 +183,11 @@ public final class GuestViewer extends JavaPlugin {
     }
     
     public boolean canFreeRoam(Player player) {
-        return allowFreeRoam && (hasPermission(player, "guestviewer.freeroam") || hasPermission(player, "guestviewer.bypass"));
+        return hasPermission(player, "guestviewer.freeroam") || hasPermission(player, "guestviewer.bypass");
+    }
+    
+    public boolean canChat(Player player) {
+        return hasPermission(player, "guestviewer.chat") || hasPermission(player, "guestviewer.bypass");
     }
     
     public void setSpectatorMode(Player player) {
