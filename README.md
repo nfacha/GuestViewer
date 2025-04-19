@@ -4,6 +4,20 @@ A Minecraft plugin that restricts non-whitelisted players to spectator mode with
 
 ![Build Status](https://github.com/nfacha/GuestViewer/actions/workflows/build.yml/badge.svg)
 
+## Download
+
+### Stable Version
+**[Download Latest Stable Version](https://github.com/nfacha/GuestViewer/releases)**
+
+### Bleeding Edge Version
+**[Download Latest Bleeding Edge Version](https://github.com/nfacha/GuestViewer/actions/workflows/build.yml)**
+⚠️ You will need to be logged into GitHub to download artifacts from GitHub Actions.
+
+## Server Compatibility
+
+- Tested and working on Minecraft 1.21.x
+- Should work on Paper/Spigot servers
+
 ## Features
 
 - Permission-based whitelist system - players without the `guestviewer.bypass` permission are automatically set to spectator mode
@@ -16,7 +30,7 @@ A Minecraft plugin that restricts non-whitelisted players to spectator mode with
 
 ## Installation
 
-1. Download the latest release from the releases page
+1. Download the latest release from the link above
 2. Place the JAR file in your server's `plugins` directory
 3. Restart your server or run `/reload`
 4. Configure the plugin as needed (see Configuration section)
