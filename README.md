@@ -10,7 +10,8 @@ A Minecraft plugin that restricts non-whitelisted players to spectator mode with
 - Players with the `guestviewer.bypass` permission are automatically set to survival mode
 - Spectators can only move within 100 blocks of the player they're spectating
 - Permission-based free roaming near world spawn
-- Configurable distance limitations and messages
+- Configurable welcome messages for both regular players and spectators
+- Configurable join/leave broadcast messages for both regular players and spectators
 - Simple and lightweight
 
 ## Installation
@@ -41,14 +42,38 @@ The plugin's configuration is stored in `plugins/GuestViewer/config.yml`:
 # Maximum distance (in blocks) a spectator can move from their target
 max-distance: 100
 
-# Message shown to players when they join and are set to spectator mode
-join-message: "&cYou are not whitelisted! You have been set to spectator mode."
+# Messages
+messages:
+  # Message shown to players when they join and are set to spectator mode
+  spectator-join: "&cYou are not whitelisted! You have been set to spectator mode."
+  
+  # Message shown to players when they join and have the bypass permission
+  player-join: "&aWelcome back! You are playing in survival mode."
+  
+  # Message shown when a spectator tries to move beyond the max distance
+  distance-warning: "&cYou cannot move more than 100 blocks from the player you are spectating!"
 
-# Message shown when a spectator tries to move beyond the max distance
-distance-warning: "&cYou cannot move more than 100 blocks from the player you are spectating!"
+# Broadcast notifications
+broadcast:
+  # Whether to broadcast when a player with bypass permission joins
+  player-join-enabled: true
+  player-join-message: "&e%player% &ahas joined the server."
+  
+  # Whether to broadcast when a player with bypass permission leaves
+  player-quit-enabled: true
+  player-quit-message: "&e%player% &chas left the server."
+  
+  # Whether to broadcast when a spectator joins
+  spectator-join-enabled: true
+  spectator-join-message: "&7Guest &e%player% &7has joined as a spectator."
+  
+  # Whether to broadcast when a spectator leaves
+  spectator-quit-enabled: true
+  spectator-quit-message: "&7Guest &e%player% &7has left the server."
 
-# Allow spectators to freely roam within 100 blocks of world spawn if not spectating a player
-# This setting must be true AND the player needs the guestviewer.freeroam permission
+# Allow spectators with the guestviewer.freeroam permission to freely roam
+# within max-distance blocks of world spawn
+# Both this setting AND the permission are required for free roaming
 allow-free-roam: true
 ```
 

@@ -1,7 +1,25 @@
 name: GuestViewer
-version: '1.0-SNAPSHOT'
+version: '1.0.0'
 main: dev.facha.guestViewer.GuestViewer
 api-version: '1.21'
 prefix: GuestViewer
 authors: [Esquilim]
-website: facha
+description: A plugin that restricts non-whitelisted players to spectator mode with movement limitations.
+
+commands:
+  guestviewer:
+    description: Main command for GuestViewer plugin
+    usage: /guestviewer [reload]
+    aliases: [gview]
+    permission: guestviewer.admin
+
+permissions:
+  guestviewer.bypass:
+    description: Allows players to bypass spectator mode
+    default: op
+  guestviewer.admin:
+    description: Grants access to admin commands
+    default: op
+  guestviewer.freeroam:
+    description: Allows spectators to freely roam within the max distance from spawn
+    default: false
